@@ -1,6 +1,8 @@
-$Authorization = "aXdheTppd2F5"
-$iSMHeaders = @{'Authorization' = "Basic " + $Authorization; 'Origin' = 'http://localhost:9999' }
-$confDomainName = "localhost,WINDEV2304EVAL,Domain6"
+param(
+    $Authorization = "aXdheTppd2F5",
+    $iSMHeaders = @{'Authorization' = "Basic " + $Authorization; 'Origin' = 'http://localhost:9999' },
+    $confDomainName = "localhost,WINDEV2304EVAL,Domain6"
+    )
 
 $Uri = 'http://localhost:9999/ism/serverConsoleSettings?'
 $Form = @{

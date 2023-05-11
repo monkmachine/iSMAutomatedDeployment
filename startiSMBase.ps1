@@ -1,1 +1,5 @@
-Start-Service -Name "iWay9 base"
+param(
+    $iSMServiceName = "iWay9 base"
+    )
+    
+Start-Service -Name $iSMServiceName

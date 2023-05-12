@@ -18,11 +18,11 @@ $Form = @{
 $DomianUpdateResult = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
 [xml] $DomainUpdateHtml = $DomianUpdateResult.Content 
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUserDeclaredVarsMoreThanAssignments', '', Scope = 'Function')]
-$maxlogsizeResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[4]/tr/td[3]/input[@name='maxlogsize']/@value" | Select-Object -ExpandProperty Node
-$numlogstokeepResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[5]/tr/td[3]/input[@name='numlogstokeep']/@value" | Select-Object -ExpandProperty Node
-$datadebugsizeResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[6]/tr/td[3]/input[@name='datadebugsize']/@value" | Select-Object -ExpandProperty Node
+$maxlogsizeResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[4]/tr/td[3]/input[@name='maxlogsize']/@value" | Select-Object 
+$numlogstokeepResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[5]/tr/td[3]/input[@name='numlogstokeep']/@value" | Select-Object 
+$datadebugsizeResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form/fieldset/div/table[6]/tr/td[3]/input[@name='datadebugsize']/@value" | Select-Object 
 
-if ($maxlogsize -eq $maxlogsize -and $numlogstokeepResult -eq $numlogstokeep -and $datadebugsizeResult -eq $datadebugsize) {
+if ($maxlogsizeResult.Node.Value -eq $maxlogsize -and $numlogstokeepResult.Node.Value -eq $numlogstokeep -and $datadebugsizeResult.Node.Value -eq $datadebugsize) {
     Write-Host("Success")
 }
 else {

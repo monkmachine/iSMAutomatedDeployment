@@ -12,10 +12,10 @@ $Form = @{
     jvmOptions = $jvmOptions
 }
 
-$JVMUpdateResult = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
-[xml] $JVMUpdateHtml = $JVMUpdateResult.Content 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUserDeclaredVarsMoreThanAssignments', '', Scope = 'Function')]
-$JVMUpdateResult = Select-Xml -Xml $JVMUpdateHtml -XPath "/html/body/div/div/table/tr/td[4]/form[1]/fieldset/div/table/tr/td[3]/textarea/text()" | Select-Object -ExpandProperty Node
+$Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
+[xml] $ResultHtml = $Result.Content 
+$JVMUpdateResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[4]/form[1]/fieldset/div/table/tr/td[3]/textarea/text()" | Select-Object -ExpandProperty Node
+Write-Host($JVMUpdateResult)
 
 if ($JVMUpdateResult = $jvmOptions) {
     Write-Host("Success")

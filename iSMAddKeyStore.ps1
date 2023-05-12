@@ -23,12 +23,12 @@ $Form = @{
     ksprovider = 'NOT_SPECIFIED'
 }
 
-$KeyStoreUpdateResult = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
-[xml] $KeyStoreUpdateHtml = $KeyStoreUpdateResult.Content 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUserDeclaredVarsMoreThanAssignments', '', Scope = 'Function')]
-$nameResult = Select-Xml -Xml $KeyStoreUpdateHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[2]/a" | Select-Object 
-$descResult = Select-Xml -Xml $KeyStoreUpdateHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object 
-
+$Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
+[xml] $ResultHtml = $Result.Content 
+$nameResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[2]/a" | Select-Object 
+$descResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object 
+Write-Host($nameResult)
+Write-Host($descResult)
 
 if ($nameResult.Node.Value -eq $name -and $descResult.Node.Value -eq $desc) {
     Write-Host("Success")

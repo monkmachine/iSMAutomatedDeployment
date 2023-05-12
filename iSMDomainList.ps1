@@ -11,11 +11,10 @@ $Form = @{
     confDomainName = $confDomainName
 }
 
-$DomianUpdateResult = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
-[xml] $DomainUpdateHtml = $DomianUpdateResult.Content 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUserDeclaredVarsMoreThanAssignments', '', Scope = 'Function')]
-$DomainUpdateResult = Select-Xml -Xml $DomainUpdateHtml -XPath "/html/body/div/div/table/tr/td[3]/form/div/table/tbody/tr[3]/td[2]/input[@name='confDomainName']/@value" | Select-Object -ExpandProperty Node
-
+$Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
+[xml] $ResultHtml = $Result.Content 
+$DomainUpdateResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form/div/table/tbody/tr[3]/td[2]/input[@name='confDomainName']/@value" | Select-Object -ExpandProperty Node
+Write-Host($DomainUpdateResult)
 if ($DomainUpdateResult = $confDomainName) {
     Write-Host("Success")
 }

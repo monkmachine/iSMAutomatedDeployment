@@ -25,11 +25,10 @@ $Form = @{
     sessiontimeout = $sessiontimeout
 }
 
-$KeyStoreUpdateResult = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
-[xml] $KeyStoreUpdateHtml = $KeyStoreUpdateResult.Content 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUserDeclaredVarsMoreThanAssignments', '', Scope = 'Function')]
-$nameResult = (Select-Xml -Xml $KeyStoreUpdateHtml -XPath "/html/body/div/div/table/tr/td[3]/form[2]/fieldset/div/div[2]/table/tbody[2]/tr/td[1]/input/@value"| Select-Object).Node.Value.trim()
-$descResult = (Select-Xml -Xml $KeyStoreUpdateHtml -XPath "/html/body/div/div/table/tr/td[3]/form[2]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object).Node.Value.trim()
+$Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
+[xml] $ResultHtml = $Result.Content 
+$nameResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[2]/fieldset/div/div[2]/table/tbody[2]/tr/td[1]/input/@value"| Select-Object).Node.Value.trim()
+$descResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[2]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object).Node.Value.trim()
 Write-Host($nameResult)
 Write-Host($descResult)
 if ($nameResult -eq $name -and $descResult -eq $desc) {

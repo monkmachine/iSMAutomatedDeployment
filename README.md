@@ -1,16 +1,6 @@
 Common Stuff™
 -------------
 
-- Java install
-
-o All of this (ISM/BAM/IIT) wants to be running off the back of Java 11 (we've been deploying 11.0.16.1 for HCDAg -- no specific reason why we couldn't move to the latest SP on 11, mostly just for consistency across the various environments atm)
-
-o Would want the environment variable JAVA_HOME set to point to the root of the Java 11 install
-
-o Add %JAVA_HOME%/bin to the path (common not user version)
-
-o The cacerts is replaced with one provided by Steve P in the deployment folder
-
 - Common cacerts and the "main iWay keystore"
 
 o These are currently either provided as part of the "deploy package" or created in the environment -- may want to look at a more robust method in future?

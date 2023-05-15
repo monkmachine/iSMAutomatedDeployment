@@ -12,6 +12,7 @@ pool:
    - agent.name -equals WINDEV2304EVAL
   vmImage: ubuntu-latest
 steps:
+- bash: set "PSModulePath="
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 

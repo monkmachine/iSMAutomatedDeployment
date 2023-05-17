@@ -6,11 +6,13 @@ param(
     $readAccess = ''
 )
 
-if ($changeAccess.Equals('')) {
+if ($changeAccess.Equals("")) {
   } else {
     $change = '-ChangeAccess ' + $changeAccess
   }
-$full = if ($fullAccess = '') { '' }else { '–FullAccess ' + $fullAccess }
-$read = if ($readAccess = '') { '' }else { '-ReadAccess ' + $readAccess }
+$full = if ($fullAccess) { '–FullAccess ' + $fullAccess }else { ''}
+$read = if ($readAccess) { '-ReadAccess ' + $readAccess }else {''  }
 
-New-SMBShare  –Name SharedFolder   –Path 'C:\Parent-Directory'  $full  $change  $read
+$command = "–Name SharedFolder   –Path 'C:\Parent-Directory' "+  $full + " " + $change +" "+ $read
+
+New-SMBShare  –Name SharedFolder  –Path 'C:\Parent-Directory' 

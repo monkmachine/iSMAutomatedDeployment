@@ -7,9 +7,6 @@ trigger:
 - main
 
 pool:
-  name: Default
-  demands:
-   - agent.name -equals WINDEV2304EVAL
   vmImage: ubuntu-latest
 steps:
 - bash: set "PSModulePath="

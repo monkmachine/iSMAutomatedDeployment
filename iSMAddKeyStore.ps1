@@ -1,14 +1,12 @@
 param(
-    $Authorization = "aXdheTppd2F5",
-    $iSMHeaders = @{'Authorization' = "Basic " + $Authorization; 'Origin' = 'http://localhost:9999' },
-    $name = 'NewKeyStore',
-    $desc = 'NewKeyStore Description',
-    $keystore = 'c:\iway\dan.jks',
-    $kspasswd = '123',
-    $kstype = 'JKS'
+    $Authorization  = "aXdheTppd2F5",
+    $name           = 'NewKeyStore',
+    $desc           = 'NewKeyStore Description',
+    $keystore       = 'c:\iway\dan.jks',
+    $kspasswd       = '123',
+    $kstype         = 'JKS'
     )
-
-
+$iSMHeaders = @{'Authorization' = "Basic " + $Authorization; 'Origin' = 'http://localhost:9999' }
 $Uri = 'http://localhost:9999/ism/serverFormSecurityKS'
 $Form = @{
     configuration  = 'base'
@@ -25,16 +23,16 @@ $Form = @{
 
 $Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "application/x-www-form-urlencoded" -Headers $iSMHeaders -MaximumRedirection 0 -PreserveAuthorizationOnRedirect
 [xml] $ResultHtml = $Result.Content 
-$nameResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[2]/a" | Select-Object 
-$descResult = Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object 
+$nameResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[2]/a/text()" | Select-Object ).Node.Value.trim()
+$descResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object ).Node.Value.trim()
 Write-Host($nameResult)
 Write-Host($descResult)
 
-if ($nameResult.Node.Value -eq $name -and $descResult.Node.Value -eq $desc) {
+if ($nameResult -eq $name -and $descResult -eq $desc) {
     Write-Host("Success")
 }
 else {
-    throw "Error Updating Domain"
+    throw "Error Updating Key Store"
 }
 
 

@@ -68,14 +68,12 @@ $Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "app
 [xml] $ResultHtml = $Result.Content 
 $roleNameResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form/fieldset/table/tr[2]/td[1]/input/@value" | Select-Object).Node.Value.split(';')[0] 
 $roleDescResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form/fieldset/table/tr[2]/td[4]/span/text()" | Select-Object).Node.Value.trim()
-Write-Host($roleNameResult)
-Write-Host($roleDescResult)
 
 if ($roleNameResult -eq $roleName -and $roleDescResult -eq $roleDesc) {
-    Write-Host("Success")
+    Write-Host("Success Added Server Role")
 }
 else {
-    throw "Error Updating Domain"
+    throw "Error Creating Server Role"
 }
 
 

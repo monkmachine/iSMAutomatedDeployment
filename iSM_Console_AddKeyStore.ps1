@@ -25,14 +25,12 @@ $Result = Invoke-WebRequest -Uri $Uri -Method Post -Body $Form -ContentType "app
 [xml] $ResultHtml = $Result.Content 
 $nameResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[2]/a/text()" | Select-Object ).Node.Value.trim()
 $descResult = (Select-Xml -Xml $ResultHtml -XPath "/html/body/div/div/table/tr/td[3]/form[1]/fieldset/div/div[2]/table/tbody[2]/tr/td[3]/text()" | Select-Object ).Node.Value.trim()
-Write-Host($nameResult)
-Write-Host($descResult)
 
 if ($nameResult -eq $name -and $descResult -eq $desc) {
-    Write-Host("Success")
+    Write-Host("Success Created Key Store")
 }
 else {
-    throw "Error Updating Key Store"
+    throw "Error Creating Key Store"
 }
 
 

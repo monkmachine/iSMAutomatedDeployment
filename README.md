@@ -3,7 +3,8 @@ Common Stuff™
 https://dev.azure.com/danielcoldrick/_notifications?subscriptionId=ms.vss-build.build-requested-personal-subscription&publisherId=ms.vss-build.build-event-publisher&tracking_data=eyJTb3VyY2UiOiJFbWFpbCIsIlR5cGUiOiJOb3RpZmljYXRpb24iLCJTSUQiOiJtcy52c3MtYnVpbGQuYnVpbGQtcmVxdWVzdGVkLXBlcnNvbmFsLXN1YnNjcmlwdGlvbiIsIlNUeXBlIjoiQ09OIiwiUmVjaXAiOjEsIl94Y2kiOnsiTklEIjoxMjk5MjAwODEsIk1SZWNpcCI6Im0wPTEgIiwiQWN0IjoiNTRkMzA1NDYtYWMwYS00NTE5LTg5YjItN2IwNjQ2MTdkMWY5In0sIkVsZW1lbnQiOiJmb290ZXIvdmlld0xpbmsifQ%3d%3d
 - Java install
 
-o All of this (ISM/BAM/IIT) wants to be running off the back of Java 11 (we've been deploying 11.0.16.1 for HCDAg -- no specific reason why we couldn't move to the latest SP on 11, mostly just for consistency across the various environments atm)
+o All of this (ISM/BAM/IIT) wants to be running off the bac[javadoc.zip](https://github.com/monkmachine/iSMAutomatedDeployment/files/11517870/javadoc.zip)
+k of Java 11 (we've been deploying 11.0.16.1 for HCDAg -- no specific reason why we couldn't move to the latest SP on 11, mostly just for consistency across the various environments atm)
 
 o Would want the environment variable JAVA_HOME set to point to the root of the Java 11 install
 
